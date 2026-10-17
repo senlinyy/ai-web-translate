@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Web Translate Setup</title>
+<style>
+  :root { --bg: #f5f7f1; --card: #fff; --ink: #193c34; --muted: #55675f; --line: #dfe7df; --accent: #245b46; --code: #eef2ea; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #111815; --card: #18211d; --ink: #e4ece7; --muted: #a3b3ab; --line: #2b3832; --accent: #8fd3bd; --code: #0f1613; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 48px 16px 80px; }
+  header { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; }
+  header svg { flex: none; }
+  h1 { font-size: 30px; line-height: 1.2; margin: 0; letter-spacing: -0.4px; }
+  .lede { color: var(--muted); margin: 4px 0 0; }
+  section { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 24px clamp(18px, 5vw, 36px); margin: 0 0 16px; }
+  h2 { font-size: 19px; margin: 0 0 10px; }
+  ol, ul { padding-left: 22px; margin: 8px 0; } li { margin: 8px 0; }
+  a { color: var(--accent); }
+  pre { background: var(--code); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; overflow-x: auto; font-size: 14px; margin: 8px 0; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.92em; }
+  .button { display: inline-block; background: var(--accent); color: var(--card); text-decoration: none; padding: 10px 16px; border-radius: 10px; font-weight: 600; margin: 4px 8px 4px 0; }
+  .muted { color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <svg width="56" height="56" viewBox="0 0 128 128" aria-hidden="true"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f6f57"/><stop offset="1" stop-color="#193c34"/></linearGradient></defs><rect x="4" y="4" width="120" height="120" rx="28" fill="url(#g)"/><g transform="translate(20 20) scale(3.67)" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h8M8 3v2m2.5 0c-.8 3.6-3 6.4-6.5 8m2.5-5c1 1.9 2.6 3.4 4.5 4.4"/><path d="m12.5 21 4-9 4 9m-6.8-2.8h5.6"/></g></svg>
+    <div><h1>AI Web Translate</h1><p class="lede">Read webpages in two languages with Claude or ChatGPT.</p></div>
+  </header>
+
+  <section>
+    <h2>What you need</h2>
+    <ul>
+      <li>macOS (Linux should work but is untested; Windows is not supported).</li>
+      <li><a href="https://nodejs.org">Node.js 22</a> or newer.</li>
+      <li>For Claude models: <a href="https://code.claude.com">Claude Code</a>, signed in with your Claude subscription or Anthropic Console account.</li>
+      <li>For ChatGPT models: a ChatGPT account (you sign in from the extension; the installer downloads its own Codex runtime).</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>1. Install the extension</h2>
+    <a class="button" href="https://chromewebstore.google.com/detail/jgakhnmnilcgaclknglkphdjnkkpepdm">Get it from the Chrome Web Store</a>
+  </section>
+
+  <section>
+    <h2>2. Install the companion</h2>
+    <p>The companion is a small local app that connects the extension to Claude Code or Codex on your computer.</p>
+    <a class="button" href="ai-web-translate-companion-0.9.0.zip" download>Download companion 0.9.0</a>
+    <ol>
+      <li>Unzip the download and open Terminal in the unzipped folder.</li>
+      <li>Run the installer, then the check:
+        <pre><code>npm run install:companion
+npm run doctor</code></pre></li>
+      <li>For Claude models, sign in to Claude Code once (if you haven't):
+        <pre><code>claude auth login</code></pre>
+        Use <code>claude auth login --console</code> to use Anthropic API billing instead of a subscription.</li>
+      <li>Restart Chrome (or turn the extension off and on in <code>chrome://extensions</code>).</li>
+    </ol>
+    <p class="muted">Keep the unzipped folder only until the installer finishes; the companion is copied to <code>~/Library/Application Support/AI Web Translate</code>.</p>
+  </section>
+
+  <section>
+    <h2>3. Translate</h2>
+    <ol>
+      <li>Open a webpage and click the AI Web Translate icon.</li>
+      <li>Choose a model (Claude Haiku 5.5 is fastest), then <strong>Translate page</strong>. Press <strong>Option+Shift+T</strong> to toggle without the popup.</li>
+      <li>For ChatGPT models, click <strong>Sign in with ChatGPT</strong> first.</li>
+      <li>To translate selected text in a floating card on any site, open the extension's settings and turn on <strong>Selection translation</strong>.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>What is sent where</h2>
+    <p>Nothing is sent until you start a translation. The text you translate goes from the extension to the companion on your computer, then to Anthropic (Claude) or OpenAI (ChatGPT) under your own account. The developer receives nothing. Settings and cached translations stay in your browser.</p>
+  </section>
+
+  <section>
+    <h2>Uninstall</h2>
+    <p>Remove the extension in Chrome, then delete <code>~/Library/Application Support/AI Web Translate</code> and <code>~/Library/Application Support/Google/Chrome/NativeMessagingHosts/com.ai_web_translate.host.json</code>.</p>
+    <p class="muted">AI Web Translate is an independent project and is not affiliated with Anthropic or OpenAI. Contact: <a href="mailto:senlinyy.uk@gmail.com">senlinyy.uk@gmail.com</a></p>
+  </section>
+</main>
+</body>
+</html>
