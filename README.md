@@ -1,2 +1,5 @@
-# ai-web-translate
-Setup guide and companion download for the AI Web Trnslate Chrome extension
+# AI Web Translate
+
+Setup guide and companion download for the AI Web Translate Chrome extension.
+
+Setup page: https://senlinyy.github.io/ai-web-translate/
